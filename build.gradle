@@ -1,0 +1,178 @@
+plugins {
+    id 'groovy'
+    id 'application'
+    id 'edu.sc.seis.launch4j' version '2.5.4'
+}
+
+mainClassName = "JamSketch"
+
+repositories {
+    google()
+    mavenCentral()
+    maven {url "https://artifacts.alfresco.com/nexus/content/repositories/public/"}
+    // maven {url "https://dl.bintray.com/groovy/maven/"}
+
+    // jahmm
+    maven {
+        url "https://maven.scijava.org/content/groups/public/"
+    }
+
+    // cmx
+    // maven {
+    //     name = "GitHubPackages"
+    //     url = uri("https://maven.pkg.github.com/kitaharalab/cmx")
+    //     credentials {
+    //         username = System.getenv("GITHUB_ACTOR")
+    //         password = System.getenv("GITHUB_TOKEN")
+    //     }
+    // }
+}
+
+sourceSets {
+    main {
+        java.srcDirs = [projectDir]
+        groovy.srcDirs = [projectDir]
+    }
+}
+
+
+println("project dir ${projectDir}")
+// buildDir = projectDir
+
+//println(projectDir)
+//println(buildDir)
+//println(sourceSets.main.java.srcDirs)
+
+//configurations {
+//    groovyScript
+//}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'], exclude: [])
+    // cmx
+    //// project
+    // implementation project(path: ':cmx_jre')
+    //// GitHubPackages
+    // implementation 'cmx:cmx_jre:1.0.0'
+
+    // cmx dependencies
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-math
+    implementation 'org.apache.commons:commons-math:2.2'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-math3
+    implementation 'org.apache.commons:commons-math3:3.6.1'
+    // https://mvnrepository.com/artifact/be.ac.ulg.montefiore.run.jahmm/jahmm
+    implementation 'be.ac.ulg.montefiore.run.jahmm:jahmm:0.6.2'
+
+    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy
+    implementation 'org.codehaus.groovy:groovy:3.0.9'
+    // https://mvnrepository.com/artifact/org.apache.ivy/ivy
+    implementation 'org.apache.ivy:ivy:2.4.0'
+
+    // https://mvnrepository.com/artifact/nz.ac.waikato.cms.weka/weka-stable
+    implementation 'nz.ac.waikato.cms.weka:weka-stable:3.6.14'
+    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-json
+    implementation 'org.codehaus.groovy:groovy-json:3.0.1'
+    // https://mvnrepository.com/artifact/com.googlecode.javacpp/javacpp
+    implementation 'com.googlecode.javacpp:javacpp:0.7'
+    // https://mvnrepository.com/artifact/com.googlecode.javacv/javacv
+    implementation 'com.googlecode.javacv:javacv:0.1'
+    // https://mvnrepository.com/artifact/controlp5/controlp5
+    // implementation 'controlp5:controlp5:2.2.4'
+    // https://mvnrepository.com/artifact/dk.ange/javaoctave
+    // implementation 'dk.ange:javaoctave:0.6.4'
+    // https://mvnrepository.com/artifact/it.unimi.dsi/fastutil
+    implementation 'it.unimi.dsi:fastutil:8.5.6'
+    //https://mvnrepository.com/artifact/javazoom/jlayer
+    implementation 'javazoom:jlayer:1.0.1'
+
+
+    //https://mvnrepository.com/artifact/commons-logging/commons-logging
+    implementation 'commons-logging:commons-logging:1.2'
+
+    // tensorflow java
+    implementation 'org.tensorflow:tensorflow-core-platform:0.4.1'
+
+    // https://mvnrepository.com/artifact/org.tensorflow/proto
+    implementation group: 'org.tensorflow', name: 'proto', version: '1.15.0'
+
+    // added 20221212 yonamine yonamine blow 4 implementation
+    implementation 'xml-resolver:xml-resolver:1.2'
+
+    // https://mvnrepository.com/artifact/xerces/xercesImpl
+    implementation group: 'xerces', name: 'xercesImpl', version: '2.12.2'
+
+    // https://mvnrepository.com/artifact/xalan/xalan
+    implementation group: 'xalan', name: 'xalan', version: '2.7.2'
+
+    // https://mvnrepository.com/artifact/xalan/serializer
+    implementation 'xalan:serializer:2.7.2'
+
+}
+
+compileJava.options.encoding = "UTF-8"
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+application {
+    // Define the main class for the application.
+    mainClass = 'JamSketch'
+}
+
+task runScript(type: JavaExec) {
+    description 'Run Groovy script'
+    // println(sourceSets.main.compileClasspath.files)
+
+    classpath(sourceSets.main.compileClasspath)
+    classpath(".")
+    println(classpath.toString())
+    main 'groovy.ui.GroovyMain'
+    args 'jamsketch.groovy'
+}
+
+task printEnv {
+    println(sourceSets.main.compileClasspath.files)
+}
+
+
+jar {
+    //Exclude the duplicate dependencies.
+   duplicatesStrategy=DuplicatesStrategy.EXCLUDE
+
+   //Specify the main class for manifest file.
+   manifest {
+        attributes "Main-Class" : "jamsketch"
+    }
+
+    //Include multiple dependencies.
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+     //include some file from projectDir to Jar file.
+    from(projectDir) {
+        //Specifying the files excluded from Jar file. 
+        exclude "*.java"
+        exclude "*.groovy"
+        exclude ".*"
+        exclude "build*"
+        exclude "*gradle*"
+        exclude "settings*"
+        exclude "*.txt"
+        exclude "*.mid"
+        exclude "bk"
+        exclude "bin*"
+    }
+}
+
+//Build exe file.
+launch4j {
+    headerType="gui"
+    mainClassName = "jamsketch"
+    outfile = "JamSketch.exe"
+    // icon = "${projectDir}/src/main/resources/images/icon.ico"
+
+    //Specify the jar task included in build.gradle.
+    jarTask=project.tasks.jar
+}
+
