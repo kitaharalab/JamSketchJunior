@@ -1,0 +1,78 @@
+import jp.crestmuse.cmx.misc.*
+import static jp.crestmuse.cmx.misc.ChordSymbol2.*
+
+class Config {
+  String MIDFILENAME = "blues02.mid"
+//  String MIDFILENAME = "blues01.mid"
+  List<ChordSymbol2> chordprog = [C, F, C, C, F, F, C, C, G, F, C, G]
+  int NUM_OF_MEASURES = 12
+  int NUM_OF_RESET_AHEAD = 1
+//  int DIVISION = 12
+  int DIVISION = 16
+  int BEATS_PER_MEASURE = 4
+  int INITIAL_BLANK_MEASURES = 2
+  int REPEAT_TIMES = 4
+  int CALC_LENGTH = 1
+
+//Add　Varialbles 20220824
+  String MODEL_ENGINE="./onebar_model_div4"
+//  String MODEL_ENGINE="./onebar_model_div3"
+  String MODEL_ENGINE_LAYER = "serving_default_first_layer_input"
+  int MODEL_INPUT_COL=133
+  int MODEL_OUTPUT_COL=121
+  int CHORD_COL_START=121
+  int NUM_OF_MELODY_ELEMENT=12
+  int NOTE_NUM_START=36
+  int REST_COL=121
+  int NOTE_CON_COL_START=60
+
+//Add　Varialbles 20220824 
+
+
+  String MODEL_FILE = "model20180321.json"
+  String LOG_DIR = "log/"
+  boolean EXPRESSION = false
+  boolean MELODY_RESETTING = true
+  boolean CURSOR_ENHANCED = true
+  boolean ON_DRAG_ONLY = true
+  int HOW_IN_ADVANCE = 1
+  int EYE_MOTION_SPEED = 30
+  boolean FORCED_PROGRESS = false
+  String MOTION_CONTROLLER = null // EyeTrackerFrame, TobiiReceiver, or RfcommServer
+
+//  def OCTAVE_PROGRAM = [win: "C:\\Octave\\Octave-4.0.3\\bin\\octave-4.0.3.exe"]
+//  def OCTAVE_PROGRAM = [win: "C:\\Octave\\Octave-4.4.1\\bin\\octave-cli-4.4.1.exe"]
+  def OCTAVE_PROGRAM = [win: "C:\\Program Files\\GNU Octave\\Octave-6.2.0\\mingw64\\bin\\octave-cli-6.2.0.exe"]
+
+  int GA_TIME_R = 100
+  int GA_TIME = 500
+  int GA_POPUL_SIZE = 200
+  String GA_INIT = "tree"  // "random" or "tree"
+
+  def JAMSKETCH_ENGINE = "JamSketchEngineTF1" //"JamSketchEngineSimple"
+
+  def ENT_BIAS = 0.0
+  def RHYTHM_DENSITY = 6.0
+  def SIM_THRESHOLD = 10
+
+
+
+  def MODEL_FILENAME_BASE = "./expressive/models/takeTheATrain_KNN"
+  def MODEL_FILENAMES =
+    [dur: MODEL_FILENAME_BASE + "_durRat.model",
+     energy: MODEL_FILENAME_BASE + "_energyRat.model",
+     onset: MODEL_FILENAME_BASE + "_onsetDev.model"];
+  def LIMITS =
+  ////    [onset: [0, 0], dur: [1.0, 1.0], energy: [0.0, 1.99]]
+    [onset: [-0.0833, 0.0833], dur: [0.0625, 1.25], energy: [0.0, 1.99]]
+    //[onset: [-0.1250, 0.1250], dur: [0.0625, 1.5], energy: [0.0, 1.99]]
+    //[onset: [-0.0833, 0.0833], dur: [0.0, 1.25], energy: [0.0, 1.99]]
+    //[onset: [-0.0625, 0.0625], dur: [0.0, 1.25], energy: [0.0, 1.99]]
+
+   boolean SHOW_GUIDE = false
+   int CHANNEL_GUIDE = 2
+   int CHANNEL_ACC = 1
+   int GUIDE_SMOOTHNESS = 10
+}
+
+new Config()
