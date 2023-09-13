@@ -1,0 +1,86 @@
+
+> Configure project :
+classpath
+[/mnt/c/Users/admin/Documents/kitahara/work/git/JamSketch/libs/cmx_jre-1.0.0.jar, /mnt/c/Users/admin/Documents/kitahara/work/git/JamSketch/libs/controlP5.jar, /mnt/c/Users/admin/Documents/kitahara/work/git/JamSketch/libs/javaoctave-0.6.4.jar, /mnt/c/Users/admin/Documents/kitahara/work/git/JamSketch/libs/processing-core.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-math/2.2/4877b85d388275f994a5cfc7eceb73a8045d3006/commons-math-2.2.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-math3/3.6.1/e4ba98f1d4b3c80ec46392f25e094a6a2e58fcbf/commons-math3-3.6.1.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/be.ac.ulg.montefiore.run.jahmm/jahmm/0.6.2/e738ce4977fee8dcea9148e349e690ac6cb76814/jahmm-0.6.2.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy/3.0.9/bd159803bedc434e7af0f714693fb5578a719e95/groovy-3.0.9.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/org.apache.ivy/ivy/2.4.0/5abe4c24bbe992a9ac07ca563d5bd3e8d569e9ed/ivy-2.4.0.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/nz.ac.waikato.cms.weka/weka-stable/3.6.14/a53dc19f1eb69bbf051a8e5496773461585a899d/weka-stable-3.6.14.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-json/3.0.1/fd7d7677bb11ba5076080d19ac32c924f7f5f2a1/groovy-json-3.0.1.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/com.googlecode.javacv/javacv/0.1/6ae58ecf0b93d233ebd744d78a2d5eec933413a9/javacv-0.1.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/com.googlecode.javacpp/javacpp/0.7/ff8f2a518e524ae8de093d6556fc21a6ab8f05b2/javacpp-0.7.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/it.unimi.dsi/fastutil/8.5.6/76f95700418a68fbc4ac050525261f05dc681ca1/fastutil-8.5.6.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/javazoom/jlayer/1.0.1/2bfef7a5a4c9af2184ff74b460b6d7d24349b98a/jlayer-1.0.1.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/4bfc12adfe4842bf07b657f0369c4cb522955686/commons-logging-1.2.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/org.tensorflow/tensorflow-core-platform/0.4.1/b0289d7f8335974a40baed883af5f7d4c0fd1449/tensorflow-core-platform-0.4.1.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/net.sf.squirrel-sql.thirdparty-non-maven/java-cup/0.11a/1de46cc85d147d9f91af59d4a0107091c8b112d6/java-cup-0.11a.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/org.tensorflow/tensorflow-core-api/0.4.1/17b70364fdbe5ed373800f70522e4ee1d0bad5bd/tensorflow-core-api-0.4.1.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/org.tensorflow/tensorflow-core-api/0.4.1/af40d3821be4b0747acf66628ab4a94d94330f61/tensorflow-core-api-0.4.1-linux-x86_64.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/org.tensorflow/tensorflow-core-api/0.4.1/4892ee682a5c3a77e026ccf81f6eb27fe4eda46e/tensorflow-core-api-0.4.1-macosx-x86_64.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/org.tensorflow/tensorflow-core-api/0.4.1/8637648cb1411241cc7df9a0a2ec9fe8a31c371b/tensorflow-core-api-0.4.1-windows-x86_64.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/org.bytedeco/javacpp/1.5.6/1f18a820aadd943577b0b372554f9e35e1232e25/javacpp-1.5.6.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/org.bytedeco/javacpp/1.5.6/f04727c53f837f7fd2b3392d63aed02d7b1deec/javacpp-1.5.6-linux-x86_64.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/org.bytedeco/javacpp/1.5.6/683956a7f4a8886f48c27fa27c07fa5d98df26b7/javacpp-1.5.6-macosx-x86_64.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/org.bytedeco/javacpp/1.5.6/2215bab61f9f3322b40dfdd201ef90c779158336/javacpp-1.5.6-windows-x86_64.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/3.19.4/748e4e0b9e4fa6b9b1fe65690aa04a9db56cfc4d/protobuf-java-3.19.4.jar, /home/is-user/.gradle/caches/modules-2/files-2.1/org.tensorflow/ndarray/0.3.3/1b6d8cc3e3762f6e465b884580d9fc17ab7aeb4/ndarray-0.3.3.jar]
+
+> Task :runScript
+shared memfd open() failed: Function not implemented
+ControlP5 2.2.5 infos, comments, questions at http://www.sojamo.de/libraries/controlP5
+2022-08-23 14:20:26.618982: I external/org_tensorflow/tensorflow/cc/saved_model/reader.cc:43] Reading SavedModel from: ./onebar_model
+2022-08-23 14:20:26.636236: I external/org_tensorflow/tensorflow/cc/saved_model/reader.cc:107] Reading meta graph with tags { serve }
+2022-08-23 14:20:26.636418: I external/org_tensorflow/tensorflow/cc/saved_model/reader.cc:148] Reading SavedModel debug info (if present) from: ./onebar_model
+2022-08-23 14:20:26.636766: I external/org_tensorflow/tensorflow/core/platform/cpu_feature_guard.cc:151] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2022-08-23 14:20:26.681942: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:228] Restoring SavedModel bundle.
+2022-08-23 14:20:26.682309: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:238] The specified SavedModel has no variables; no checkpoints were restored. File does not exist: ./onebar_model/variables/variables.index
+2022-08-23 14:20:26.682429: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:212] Running initialization op on SavedModel bundle at path: ./onebar_model
+2022-08-23 14:20:26.734222: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:301] SavedModel load for tags { serve }; Status: success: OK. Took 115249 microseconds.
+java.lang.NullPointerException: Cannot invoke "jp.crestmuse.cmx.inference.MusicCalculator.updated(int, int, String, jp.crestmuse.cmx.inference.MusicRepresentation)" because "c" is null
+	at jp.crestmuse.cmx.inference.MusicRepresentationImpl$AbstractMusicLayer.update(MusicRepresentationImpl.java:502)
+	at jp.crestmuse.cmx.inference.MusicRepresentationImpl$AbstractMusicElementImpl.setEvidence(MusicRepresentationImpl.java:198)
+	at jp.crestmuse.cmx.inference.MusicElement$setEvidence.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:139)
+	at JamSketchEngineAbstract$_resetMelodicOutline_closure2$_closure3.doCall(JamSketchEngineAbstract.groovy:74)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:274)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1035)
+	at groovy.lang.Closure.call(Closure.java:412)
+	at groovy.lang.Closure.call(Closure.java:428)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:2358)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:2343)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:2384)
+	at org.codehaus.groovy.runtime.dgm$202.invoke(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoMetaMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:247)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:56)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:139)
+	at JamSketchEngineAbstract$_resetMelodicOutline_closure2.doCall(JamSketchEngineAbstract.groovy:73)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:274)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1035)
+	at groovy.lang.Closure.call(Closure.java:412)
+	at groovy.lang.Closure.call(Closure.java:428)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:2358)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:2343)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:2384)
+	at org.codehaus.groovy.runtime.dgm$202.invoke(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoMetaMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:247)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:56)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:139)
+	at JamSketchEngineAbstract.resetMelodicOutline(JamSketchEngineAbstract.groovy:72)
+	at JamSketchEngine$resetMelodicOutline$0.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:130)
+	at MelodyData2.resetCurve(MelodyData2.groovy:27)
+	at MelodyData2.<init>(MelodyData2.groovy:22)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at org.codehaus.groovy.reflection.CachedConstructor.invoke(CachedConstructor.java:72)
+	at org.codehaus.groovy.runtime.callsite.ConstructorSite$ConstructorSiteNoUnwrapNoCoerce.callConstructor(ConstructorSite.java:105)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallConstructor(CallSiteArray.java:59)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:263)
+	at JamSketch.initData(jamsketch.groovy:42)
+	at JamSketch.setup(jamsketch.groovy:37)
+	at processing.core.PApplet.handleDraw(PApplet.java:2404)
+	at jp.crestmuse.cmx.processing.CMXApplet.handleDraw(CMXApplet.java:451)
+	at processing.awt.PSurfaceAWT$12.callDraw(PSurfaceAWT.java:1557)
+	at processing.core.PSurfaceNone$AnimationThread.run(PSurfaceNone.java:313)

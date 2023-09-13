@@ -22,8 +22,6 @@ class NoteSeqGeneratorGuided implements MusicCalculator {
     this.beatsPerMeas = beatsPerMeas
     this.initialBlank = initial * beatsPerMeas
     makeBigram()
-    println(unigram1)
-    println(bigram)
     decideRhythm()
   }
 
@@ -82,7 +80,8 @@ class NoteSeqGeneratorGuided implements MusicCalculator {
 	double logbigram =
 	  prev == null ? calcLogBigram(i, null) :
 	  calcLogBigram(i, e_melody.prev().mostLikely)
-	println(logbigram)
+  // println("logbigram")
+	// println(logbigram)
         score[i] = w1 * simil + w2 * logbigram
       }
       e_melody.setEvidence(argmax(score))
@@ -90,7 +89,7 @@ class NoteSeqGeneratorGuided implements MusicCalculator {
   }
 
   def calcLogBigram(nn, prev) {
-    println(nn + " " + prev)
+    // println(nn + " " + prev)
     if (prev == null)
       Math.log(unigram1[nn])
     else

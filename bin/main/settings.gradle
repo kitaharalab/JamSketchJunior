@@ -1,0 +1,5 @@
+// include ':JamSketch_master', ':cmx', ':cmx_jre'
+
+// project(':cmx').projectDir = file('../cmx')
+// project(':cmx_jre').projectDir = file('../cmx/cmx_jre')
+// project(":JamSketch_master").projectDir = file(".")

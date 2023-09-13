@@ -28,11 +28,11 @@ class SCCGenerator implements MusicCalculator {
 	//def curvevalue = curve2[measure * CFG.DIVISION + tick]
 		def curvevalue =
 		  mr.getMusicElement(curveLayer, measure, tick).getMostLikely()
+		println("curve value: ${curvevalue}")
 		if (curvevalue != null) {
-		// int notenum = getNoteNum(e.getMostLikely(), curvevalue)
-		int notenum = e.getMostLikely()
-		// println(notenum)
-		// println(layer)
+		println("e.getMostLikely: ${e.getMostLikely().getClass()}, curvevalue: ${curvevalue.getClass()}")
+		int notenum = getNoteNum(e.getMostLikely(), curvevalue)
+		// int notenum = e.getMostLikely()
 		int duration = e.duration() * sccdiv /
 		(CFG.DIVISION / CFG.BEATS_PER_MEASURE)
 		int onset = ((firstMeasure + measure) * CFG.DIVISION + tick) * sccdiv /
@@ -66,7 +66,7 @@ class SCCGenerator implements MusicCalculator {
 							//		  note.setOnset(onset+duration)
 						}
 					}
-					target_part.addNoteElement(onset, onset+duration, notenum+CFG.TF_NOTE_NUM_START,
+					target_part.addNoteElement(onset, onset+duration, notenum,
 							100, 100)
 					println("all add ${onset}, ${onset+duration}, ${notenum}")
 					//	  }
@@ -74,24 +74,23 @@ class SCCGenerator implements MusicCalculator {
 			}
 		}
       }
+ }
+    //   if (CFG.EXPRESSION) {
+	// def fromTick = (firstMeasure + measure) * CFG.BEATS_PER_MEASURE *
+	//   CFG.DIVISION
+	// def thruTick = fromTick + CFG.BEATS_PER_MEASURE * CFG.DIVISION
+	// expgen.execute(fromTick, thruTick, CFG.DIVISION)
+    //   }
+    // }
 
-      if (CFG.EXPRESSION) {
-	def fromTick = (firstMeasure + measure) * CFG.BEATS_PER_MEASURE *
-	  CFG.DIVISION
-	def thruTick = fromTick + CFG.BEATS_PER_MEASURE * CFG.DIVISION
-	expgen.execute(fromTick, thruTick, CFG.DIVISION)
-      }
+  @CompileStatic
+  int getNoteNum(int notename, double neighbor) {
+    int best = 0
+    for (int i in 0..11) {
+      def notenum = i * 12 + notename
+      if (Math.abs(notenum - neighbor) < Math.abs(best - neighbor))
+	best = notenum
     }
-
-//   @CompileStatic
-//   int getNoteNum(int notename, double neighbor) {
-//     int best = 0
-//     for (int i in 0..11) {
-//       def notenum = i * 12 + notename
-//       if (Math.abs(notenum - neighbor) < Math.abs(best - neighbor)) 
-// 	best = notenum
-//     }
-//     best
-//   }
-
+    best
+  }
 }
