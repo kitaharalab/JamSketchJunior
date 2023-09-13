@@ -26,7 +26,7 @@ abstract class JamSketchEngineAbstract implements JamSketchEngine {
                                        cfg.DIVISION)
     mr.addMusicLayerCont(OUTLINE_LAYER)
     // mr.addMusicLayer(MELODY_LAYER, (0..11) as int[])
-    mr.addMusicLayer(MELODY_LAYER, (0..(cfg.TF_NOTE_CON_COL_START-1)) as int[])
+    mr.addMusicLayer(MELODY_LAYER, (0..11) as int[])
     mr.addMusicLayer(CHORD_LAYER,
                      [C, F, G] as ChordSymbol2[],	// temporary
                      cfg.DIVISION)

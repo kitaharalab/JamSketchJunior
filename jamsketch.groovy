@@ -1,14 +1,3 @@
-
-// added by yonamine 20230208
-@Grapes([
-    @Grab(group='org.tensorflow', module='tensorflow-core-api', version='0.4.1'),
-    @Grab(group='org.tensorflow', module='tensorflow-core-platform', version='0.4.1'),
-    @Grab(group='org.bytedeco', module='javacpp', version='1.5.7'),
-    @Grab(group='org.tensorflow', module='ndarray', version='0.3.3'),
-    @Grab(group='com.google.truth', module='truth', version='1.0.1', scope='test')
-
-])
-
 import controlP5.ControlP5
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
@@ -19,10 +8,6 @@ import java.io.FileReader
 import java.io.BufferedReader
 import java.io.FileNotFoundException
 import java.io.IOException
-import org.tensorflow.ndarray.Shape
-import org.tensorflow.ndarray.NdArray
-import org.tensorflow.ndarray.NdArrays
-import org.tensorflow.ndarray.FloatNdArray
 
 import java.io.FileWriter;
 import java.io.BufferedWriter;
