@@ -135,7 +135,8 @@ class JamSketch extends SimplePianoRoll {
     (pmouseX..mouseX).each { i ->
 
       melodyData.curve1[i-CFG.getKeyboardWidth] = mouseY
-
+      println("Y axis ${mouseY}")
+      println("X axis ${mouseX}")
     }
   }
 

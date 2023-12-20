@@ -29,8 +29,8 @@ class NoteSeqGeneratorGuided implements MusicCalculator {
     unigram1 = [0] * 12
     bigram = []
     12.times { bigram.add([0] * 12) }
-    println(unigram1)
-    println(bigram)
+//    println(unigram1)
+//    println(bigram)
     def prev = null
     guidepart.eachnote { note ->
       try {
@@ -68,6 +68,9 @@ class NoteSeqGeneratorGuided implements MusicCalculator {
   }
 
   void updated(int measure, int tick, String layer, MusicRepresentation mr) {
+    println("measure ${measure}")
+    println("tick ${tick}") // 8 ticks in a measure?
+
     MusicElement e_curve = mr.getMusicElement(layer, measure, tick)
     double value = e_curve.getMostLikely() as double
     def score = []
