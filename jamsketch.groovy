@@ -1,6 +1,7 @@
 import controlP5.ControlP5
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
+import processing.core.PImage
 
 // added by yonamine 20230208
 import java.io.File
@@ -30,12 +31,16 @@ class JamSketch extends SimplePianoRoll {
   int mCurrentMeasure
   double DebugModeDraw
 
-
   static def CFG
+  PImage backgroundImage;
 
   void setup() {
     super.setup()
     size(1200, 700)
+
+    // Load the background image
+    backgroundImage = loadImage("C:/Users/asano/JamSketchJunior/images/music_jam.png");
+
     showMidiOutChooser()
     def p5ctrl = new ControlP5(this)
     p5ctrl.addButton("startMusic").
@@ -76,7 +81,14 @@ class JamSketch extends SimplePianoRoll {
 
 
   void draw() {
-    super.draw()    
+    super.draw()
+
+    // Tomb added BG and transparency
+    tint(255, 90);
+    image(backgroundImage, 0, 0, width, height);
+    noTint();
+
+
     if (guideData != null)
       drawGuideCurve()
     if (CFG.FORCED_PROGRESS) {
@@ -333,14 +345,14 @@ class JamSketch extends SimplePianoRoll {
     if (CFG.MOTION_CONTROLLER.any{mCtrl == "RfcommServer"}) RfcommServer.close()
   }
 
-  static void main(String[] args) {
-    // JamSketch.CFG = evaluate(new File("./config.txt"))
-    JamSketch.CFG = evaluate(new File("./config_guided.txt"))
-    JamSketch.start("JamSketch")
-  }
+//  static void main(String[] args) {
+//     JamSketch.CFG = evaluate(new File("./config.txt"))
+////    JamSketch.CFG = evaluate(new File("./config_guided.txt"))
+//    JamSketch.start("JamSketch")
+//  }
 
 }
-// JamSketch.CFG = evaluate(new File("./config.txt"))
+//JamSketch.CFG = evaluate(new File("./config.txt"))
 JamSketch.CFG = evaluate(new File("./config_guided.txt"))
 JamSketch.start("JamSketch")
 // JamSketch.main("JamSketch", ["--external"] as String[])
