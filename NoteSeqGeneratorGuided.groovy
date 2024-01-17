@@ -77,15 +77,16 @@ class NoteSeqGeneratorGuided implements MusicCalculator {
     if (!Double.isNaN(value)) {
       MusicElement e_melody = mr.getMusicElement(noteLayer, measure, tick)
       double value12 = value - (int)(value / 12) * 12
-      (0..11).each { i ->
-        double simil = -Math.log((value12 - i) * (value12 - i))
-	def prev = e_melody.prev()
+      (0..11).each { i -> // 0-11 represents each half note from C to B
+        double simil = -Math.log((value12 - i) * (value12 - i)) // simil is the closer note value on Y axis to the line which users draw
+	    println("simil ${simil}")
+        def prev = e_melody.prev()
 	double logbigram =
-	  prev == null ? calcLogBigram(i, null) :
+	  prev == null ? calcLogBigram(i, null) : // LogBigram has probability values and this func calculates the value. If the bigger value, the more chance to get chosen.
 	  calcLogBigram(i, e_melody.prev().mostLikely)
-  // println("logbigram")
-	// println(logbigram)
-        score[i] = w1 * simil + w2 * logbigram
+        println("logbigram ${logbigram}")
+
+        score[i] = w1 * simil + w2 * logbigram // To get guessed note . For example Change w1 values bigger, w2 zero, it only gives note along the line which users draw so be musically ignored
       }
       e_melody.setEvidence(argmax(score))
     }
