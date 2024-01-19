@@ -33,6 +33,7 @@ class JamSketch extends SimplePianoRoll {
 
   static def CFG
   PImage backgroundImage;
+  boolean drawParticles = false;
 
   void setup() {
     super.setup()
@@ -128,15 +129,16 @@ class JamSketch extends SimplePianoRoll {
   }
 
   void drawParticles(float x, float y) {
-    // Customize the particle appearance
-    fill(255, 0, 0); // Red particles
-    noStroke();
+    // Draw particles only if drawParticles is true
+    if (drawParticles) {
+      // Customize the particle appearance
+      fill(255, 0, 0); // Red particles
+      noStroke();
 
-    // Draw particles (you can customize the shape and size)
-    float particleSize = 5;
-    ellipse(x, y, particleSize, particleSize);
-
-
+      // Draw particles (you can customize the shape and size)
+      float particleSize = 5;
+      ellipse(x, y, particleSize, particleSize);
+    }
   }
 
   void drawGuideCurve() {
@@ -303,15 +305,19 @@ class JamSketch extends SimplePianoRoll {
 
   void mousePressed() {
     nowDrawing = true
+    drawParticles = true;
   }
-  
+
   void mouseReleased() {
-    nowDrawing = false
+    nowDrawing = false;
+    // Set drawParticles to false when the mouse is released
+    drawParticles = false;
     if (isInside(mouseX, mouseY)) {
       if (!melodyData.engine.automaticUpdate()) {
         melodyData.engine.outlineUpdated(
-	   x2measure(mouseX) % CFG.NUM_OF_MEASURES,
-           CFG.DIVISION - 1)
+                x2measure(mouseX) % CFG.NUM_OF_MEASURES,
+                CFG.DIVISION - 1
+        );
       }
     }
   }
