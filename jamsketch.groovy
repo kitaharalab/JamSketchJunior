@@ -115,16 +115,29 @@ class JamSketch extends SimplePianoRoll {
     strokeWeight(3)
     stroke(0, 0, 255)
 
-    (0..<(melodyData.curve1.size()-1)).each { i ->
-      if (melodyData.curve1[i] != null &&
-          melodyData.curve1[i+1] != null) {
-        line(i+CFG.getKeyboardWidth, melodyData.curve1[i] as int, i+CFG.getKeyboardWidth+1,
-             melodyData.curve1[i+1] as int)
+    for (int i = 0; i < melodyData.curve1.size() - 1; i++) {
+      if (melodyData.curve1[i] != null && melodyData.curve1[i + 1] != null) {
+        // Draw a line between two points
+        line(i + CFG.getKeyboardWidth, melodyData.curve1[i] as int, i + CFG.getKeyboardWidth + 1,
+                melodyData.curve1[i + 1] as int);
+
+        // Draw particles at each point
+        drawParticles(i + CFG.getKeyboardWidth, melodyData.curve1[i] as int);
       }
-    }    
+    }
   }
 
-  
+  void drawParticles(float x, float y) {
+    // Customize the particle appearance
+    fill(255, 0, 0); // Red particles
+    noStroke();
+
+    // Draw particles (you can customize the shape and size)
+    float particleSize = 5;
+    ellipse(x, y, particleSize, particleSize);
+
+
+  }
 
   void drawGuideCurve() {
     def xFrom = 100
