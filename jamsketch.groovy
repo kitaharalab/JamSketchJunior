@@ -40,7 +40,7 @@ class JamSketch extends SimplePianoRoll {
     size(1200, 700)
 
     // Load the background image
-    backgroundImage = loadImage("C:/Users/asano/JamSketchJunior/images/music_jam.png");
+    backgroundImage = loadImage("C:/Users/asano/JamSketchJunior/images/texasBar.jpeg");
 
     showMidiOutChooser()
     def p5ctrl = new ControlP5(this)
@@ -85,7 +85,7 @@ class JamSketch extends SimplePianoRoll {
     super.draw()
 
     // Tomb added BG and transparency
-    tint(255, 90);
+    tint(255, 100);
     image(backgroundImage, 0, 0, width, height);
     noTint();
 
@@ -131,28 +131,25 @@ class JamSketch extends SimplePianoRoll {
   void drawParticles(float x, float y) {
     // Draw particles only if drawParticles is true
     if (drawParticles) {
-      // Customize the particle appearance
-      fill(random(255), random(255), random(255)); // Random color for a blinking effect
-      noStroke();
+      // Vary the particle size
+      float particleSize = random(5, 15);
 
-      // Draw a star-like shape (you can customize the shape and size)
-      float particleSize = 10;
-      float angleOff = PI / 5.0;
-      beginShape();
-      for (int i = 0; i < 5; i++) {
-        float angle = angleOff * i;
-        float starX = x + cos(angle) * particleSize;
-        float starY = y + sin(angle) * particleSize;
-        vertex(starX, starY);
+      // Create a gradient from white to transparent
+      for (int i = 255; i >= 0; i -= 5) {
+        fill(255, 255, 255, i); // White color with varying transparency
+        noStroke();
 
-        angle += angleOff / 2.0;
-        float outerX = x + cos(angle) * (particleSize / 2);
-        float outerY = y + sin(angle) * (particleSize / 2);
-        vertex(outerX, outerY);
+        // Draw ellipses to create a smoke-like effect
+        ellipse(x, y, particleSize, particleSize);
+
+        // Offset the position slightly to create a dispersed effect
+        x += random(-2, 2);
+        y += random(-2, 2);
       }
-      endShape(CLOSE);
     }
   }
+
+
 
 
   void drawGuideCurve() {
