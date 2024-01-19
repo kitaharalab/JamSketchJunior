@@ -132,14 +132,28 @@ class JamSketch extends SimplePianoRoll {
     // Draw particles only if drawParticles is true
     if (drawParticles) {
       // Customize the particle appearance
-      fill(255, 0, 0); // Red particles
+      fill(random(255), random(255), random(255)); // Random color for a blinking effect
       noStroke();
 
-      // Draw particles (you can customize the shape and size)
-      float particleSize = 5;
-      ellipse(x, y, particleSize, particleSize);
+      // Draw a star-like shape (you can customize the shape and size)
+      float particleSize = 10;
+      float angleOff = PI / 5.0;
+      beginShape();
+      for (int i = 0; i < 5; i++) {
+        float angle = angleOff * i;
+        float starX = x + cos(angle) * particleSize;
+        float starY = y + sin(angle) * particleSize;
+        vertex(starX, starY);
+
+        angle += angleOff / 2.0;
+        float outerX = x + cos(angle) * (particleSize / 2);
+        float outerY = y + sin(angle) * (particleSize / 2);
+        vertex(outerX, outerY);
+      }
+      endShape(CLOSE);
     }
   }
+
 
   void drawGuideCurve() {
     def xFrom = 100
