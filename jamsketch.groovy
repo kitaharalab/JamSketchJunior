@@ -21,6 +21,99 @@ import java.nio.file.Paths;
 import jp.crestmuse.cmx.filewrappers.SCCDataSet
 import jp.crestmuse.cmx.processing.gui.SimplePianoRoll
 
+// tomb added below
+import java.awt.*;
+
+
+class Particle {
+  int x, y;
+  Color color;
+  int size;
+  int elongation;
+  int age;  // New variable to represent particle age
+
+  public Particle(int x, int y, Color color, int size, int elongation) {
+    this.x = x;
+    this.y = y;
+    this.color = color;
+    this.size = size;
+    this.elongation = elongation;
+    this.age = 0;  // Initialize age to 0
+  }
+}
+
+
+private void updateParticles() {
+  // Get mouse pointer coordinates
+  Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
+  SwingUtilities.convertPointFromScreen(mouseLocation, this);
+
+
+  // Add new particles around the mouse pointer
+  if (particles.size() < 100) {
+    int x = mouseLocation.x;
+    int y = mouseLocation.y;
+
+    // Use a color gradient (yellow to red)
+    int red = 255;
+    int green = random.nextInt(100) + 100; // Vary green to simulate color variation
+    int blue = random.nextInt(50);
+
+    // Make particles semi-transparent and vary transparency over time
+    int alpha = 255;
+
+//            Color color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+    // Make particles semi-transparent
+    Color color = new Color(red, green, blue, alpha);
+    // Vary the particle size
+    int size = 5 + random.nextInt(10);
+    int elongation = 10 + random.nextInt(10);
+
+    particles.add(new Particle(x, y, color, size, elongation));
+  }
+
+  // Update particle properties and remove old particles
+  Iterator<Particle> iterator = particles.iterator();
+  while (iterator.hasNext()) {
+    Particle particle = iterator.next();
+
+    // Update particle positions
+    int dx = (int) (3 * Math.sin(random.nextDouble() * Math.PI * 2));
+    int dy = -2 - random.nextInt(2);
+
+    particle.x += dx;
+    particle.y += dy;
+
+    // Update particle age
+    particle.age++;
+
+    // Gradually reduce particle transparency as it ages
+    int alpha = (int) (255 - (255 * particle.age / particle.elongation));
+    particle.color = new Color(particle.color.getRed(), particle.color.getGreen(),
+            particle.color.getBlue(), alpha);
+
+    // Remove particles that are too old (reached their lifespan)
+    if (particle.age > particle.elongation) {
+      iterator.remove();
+    }
+  }
+}
+
+
+void drawParticles(float x, float y) {
+  // Draw particles only if drawParticles is true
+  if (drawParticles) {
+    for (Particle particle : particles) {
+      fill(particle.color.getRGB());
+      noStroke();
+
+      // Draw ellipses to create a flame-like effect
+      ellipse(particle.x, particle.y, particle.size, particle.size);
+    }
+  }
+}
+
+
 class JamSketch extends SimplePianoRoll {
 
   GuideData guideData
@@ -134,12 +227,17 @@ class JamSketch extends SimplePianoRoll {
       // Vary the particle size
       float particleSize = random(5, 15);
 
-      // Create a gradient from white to transparent
+      // Create a gradient from yellow to red
+      float red = 255;
+      float green = random(100, 255);
+      float blue = 0;
+
+      // Vary the transparency
       for (int i = 255; i >= 0; i -= 5) {
-        fill(255, 255, 255, i); // White color with varying transparency
+        fill(red, green, blue, i); // Yellow to red with varying transparency
         noStroke();
 
-        // Draw ellipses to create a smoke-like effect
+        // Draw ellipses to create a flame-like effect
         ellipse(x, y, particleSize, particleSize);
 
         // Offset the position slightly to create a dispersed effect
