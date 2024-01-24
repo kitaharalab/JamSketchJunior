@@ -2,6 +2,7 @@ import controlP5.ControlP5
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 import processing.core.PImage
+import processing.core.PApplet;
 
 // added by yonamine 20230208
 import java.io.File
@@ -21,101 +22,55 @@ import java.nio.file.Paths;
 import jp.crestmuse.cmx.filewrappers.SCCDataSet
 import jp.crestmuse.cmx.processing.gui.SimplePianoRoll
 
-// tomb added below
-import java.awt.*;
-
 
 class Particle {
-  int x, y;
-  Color color;
-  int size;
-  int elongation;
-  int age;  // New variable to represent particle age
+  float x, y;
+  float size;
+  int lifespan;
 
-  public Particle(int x, int y, Color color, int size, int elongation) {
+  Particle(float x, float y, float size, int lifespan) {
     this.x = x;
     this.y = y;
-    this.color = color;
     this.size = size;
-    this.elongation = elongation;
-    this.age = 0;  // Initialize age to 0
+    this.lifespan = lifespan;
+  }
+
+  void update() {
+    // Make particles float upwards
+    y -= (float) (0.5 + Math.random() * (1.5 - 0.5)); // Adjust the floating speed
+
+    // Decrease the lifespan
+    lifespan--;
+
+    // Add horizontal movement to the particles
+    x += (float) (-0.5 + Math.random() * (0.5 - (-0.5))); // Add horizontal movement to the particles
+
+  }
+
+  void display(PApplet sketch) {
+    // Create a color gradient for the particles
+    int r = (int) (56 + Math.random() * (255 - 56)); // Adjust the range for red component
+    int g = (int) (100 + Math.random() * (200 - 100));
+    int b = (int) (100 + Math.random() * (200 - 100));
+
+    // Add color variation to each particle
+    sketch.fill(r, g, b, lifespan * 255 / 100 as int); // Random color with varying transparency
+    sketch.noStroke();
+
+    // Draw ellipses to create a balloon-like effect with particles floating upwards
+    sketch.ellipse(x, y, size, size);
+  }
+
+
+  boolean isDead() {
+    // Check if the particle's lifespan is over
+    return lifespan <= 0;
   }
 }
-
-
-private void updateParticles() {
-  // Get mouse pointer coordinates
-  Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
-  SwingUtilities.convertPointFromScreen(mouseLocation, this);
-
-
-  // Add new particles around the mouse pointer
-  if (particles.size() < 100) {
-    int x = mouseLocation.x;
-    int y = mouseLocation.y;
-
-    // Use a color gradient (yellow to red)
-    int red = 255;
-    int green = random.nextInt(100) + 100; // Vary green to simulate color variation
-    int blue = random.nextInt(50);
-
-    // Make particles semi-transparent and vary transparency over time
-    int alpha = 255;
-
-//            Color color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
-    // Make particles semi-transparent
-    Color color = new Color(red, green, blue, alpha);
-    // Vary the particle size
-    int size = 5 + random.nextInt(10);
-    int elongation = 10 + random.nextInt(10);
-
-    particles.add(new Particle(x, y, color, size, elongation));
-  }
-
-  // Update particle properties and remove old particles
-  Iterator<Particle> iterator = particles.iterator();
-  while (iterator.hasNext()) {
-    Particle particle = iterator.next();
-
-    // Update particle positions
-    int dx = (int) (3 * Math.sin(random.nextDouble() * Math.PI * 2));
-    int dy = -2 - random.nextInt(2);
-
-    particle.x += dx;
-    particle.y += dy;
-
-    // Update particle age
-    particle.age++;
-
-    // Gradually reduce particle transparency as it ages
-    int alpha = (int) (255 - (255 * particle.age / particle.elongation));
-    particle.color = new Color(particle.color.getRed(), particle.color.getGreen(),
-            particle.color.getBlue(), alpha);
-
-    // Remove particles that are too old (reached their lifespan)
-    if (particle.age > particle.elongation) {
-      iterator.remove();
-    }
-  }
-}
-
-
-void drawParticles(float x, float y) {
-  // Draw particles only if drawParticles is true
-  if (drawParticles) {
-    for (Particle particle : particles) {
-      fill(particle.color.getRGB());
-      noStroke();
-
-      // Draw ellipses to create a flame-like effect
-      ellipse(particle.x, particle.y, particle.size, particle.size);
-    }
-  }
-}
-
 
 class JamSketch extends SimplePianoRoll {
 
+  ArrayList<Particle> particles;
   GuideData guideData
   MelodyData2 melodyData
   boolean nowDrawing = false
@@ -131,7 +86,7 @@ class JamSketch extends SimplePianoRoll {
   void setup() {
     super.setup()
     size(1200, 700)
-
+    particles = new ArrayList<>();
     // Load the background image
     backgroundImage = loadImage("C:/Users/asano/JamSketchJunior/images/texasBar.jpeg");
 
@@ -224,25 +179,18 @@ class JamSketch extends SimplePianoRoll {
   void drawParticles(float x, float y) {
     // Draw particles only if drawParticles is true
     if (drawParticles) {
-      // Vary the particle size
-      float particleSize = random(5, 15);
+      // Create a new particle and add it to the list
+      particles.add(new Particle(x, y, (float) (5 + Math.random() * (15 - 5)), 100)); // 100 frames lifespan
+    }
 
-      // Create a gradient from yellow to red
-      float red = 255;
-      float green = random(100, 255);
-      float blue = 0;
-
-      // Vary the transparency
-      for (int i = 255; i >= 0; i -= 5) {
-        fill(red, green, blue, i); // Yellow to red with varying transparency
-        noStroke();
-
-        // Draw ellipses to create a flame-like effect
-        ellipse(x, y, particleSize, particleSize);
-
-        // Offset the position slightly to create a dispersed effect
-        x += random(-2, 2);
-        y += random(-2, 2);
+    // Update and display particles
+    for (int i = particles.size() - 1; i >= 0; i--) {
+      Particle p = particles.get(i);
+      p.update();
+      p.display(this);  // Pass the sketch to the display method
+      // Remove dead particles from the list
+      if (p.isDead()) {
+        particles.remove(i);
       }
     }
   }
@@ -420,7 +368,7 @@ class JamSketch extends SimplePianoRoll {
   void mouseReleased() {
     nowDrawing = false;
     // Set drawParticles to false when the mouse is released
-    drawParticles = false;
+//    drawParticles = false;
     if (isInside(mouseX, mouseY)) {
       if (!melodyData.engine.automaticUpdate()) {
         melodyData.engine.outlineUpdated(
