@@ -51,7 +51,7 @@ class JamSketch extends SimplePianoRoll {
     size(1200, 700)
     particles = new ArrayList<>();
     // Load the background image
-    backgroundImage = loadImage("C:/Users/asano/JamSketchJunior/images/texasBar.jpeg");
+    backgroundImage = loadImage("C:/Users/asano/JamSketchJunior/images/GrandPiano.jpg");
 
     showMidiOutChooser()
     def p5ctrl = new ControlP5(this)
@@ -96,7 +96,7 @@ class JamSketch extends SimplePianoRoll {
     super.draw()
 
     // Tomb added BG and transparency
-    tint(255, 100);
+    tint(255, 200);
     image(backgroundImage, 0, 0, width, height);
     noTint();
     if (isMousePressed) {

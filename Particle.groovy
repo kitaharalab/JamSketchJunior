@@ -25,9 +25,9 @@ class Particle {
 
     void display(PApplet sketch) {
         // Create a color gradient for the particles
-        int r = (int) (56 + Math.random() * (255 - 56)); // Adjust the range for red component
-        int g = (int) (100 + Math.random() * (200 - 100));
-        int b = (int) (100 + Math.random() * (200 - 100));
+        int r = (int) (150 + Math.random() * (50)); // Adjust the range for red component
+        int g = (int) (100 + Math.random() * (50));
+        int b = (int) (200 + Math.random() * (55));
 
         // Add color variation to each particle
         sketch.fill(r, g, b, lifespan * 255 / 100 as int); // Random color with varying transparency
