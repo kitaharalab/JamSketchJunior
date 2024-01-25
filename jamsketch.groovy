@@ -29,10 +29,10 @@ import jp.crestmuse.cmx.processing.gui.SimplePianoRoll
 
 class JamSketch extends SimplePianoRoll {
 
-  ArrayList<Particle> particles;
+
   GuideData guideData
   MelodyData2 melodyData
-  boolean nowDrawing = false
+
   String username = ""
   int fullMeasure
   int mCurrentMeasure
@@ -40,7 +40,11 @@ class JamSketch extends SimplePianoRoll {
 
   static def CFG
   PImage backgroundImage;
+
+  ArrayList<Particle> particles;
   boolean drawParticles = false;
+  boolean isMousePressed = false;
+  boolean nowDrawing = false
 
   void setup() {
     super.setup()
@@ -95,7 +99,24 @@ class JamSketch extends SimplePianoRoll {
     tint(255, 100);
     image(backgroundImage, 0, 0, width, height);
     noTint();
+    if (isMousePressed) {
+      // Create particles only if drawParticles is true
+      if (drawParticles) {
+        // Create a new particle and add it to the list
+        particles.add(new Particle(mouseX, mouseY, (float) (5 + Math.random() * (15 - 5)), 100)); // 100 frames lifespan
+      }
 
+      // Update and display particles
+      for (int i = particles.size() - 1; i >= 0; i--) {
+        Particle p = particles.get(i);
+        p.update();
+        p.display(this);  // Pass the sketch to the display method
+        // Remove dead particles from the list
+        if (p.isDead()) {
+          particles.remove(i);
+        }
+      }
+    }
 
     if (guideData != null)
       drawGuideCurve()
@@ -137,20 +158,11 @@ class JamSketch extends SimplePianoRoll {
 
   void drawParticles(float x, float y) {
     // Draw particles only if drawParticles is true
+    // Draw particles only when the mouse is pressed
     if (drawParticles) {
       // Create a new particle and add it to the list
-      particles.add(new Particle(x, y, (float) (5 + Math.random() * (15 - 5)), 100)); // 100 frames lifespan
-    }
-
-    // Update and display particles
-    for (int i = particles.size() - 1; i >= 0; i--) {
-      Particle p = particles.get(i);
-      p.update();
-      p.display(this);  // Pass the sketch to the display method
-      // Remove dead particles from the list
-      if (p.isDead()) {
-        particles.remove(i);
-      }
+      Particle p = new Particle(x, y, (float) (10 + Math.random() * (30 - 10)), 50); // Adjust size and lifespan
+      p.display(this);  // Display the particle once
     }
   }
 
@@ -321,10 +333,12 @@ class JamSketch extends SimplePianoRoll {
 
   void mousePressed() {
     nowDrawing = true
+    isMousePressed = true;
     drawParticles = true;
   }
 
   void mouseReleased() {
+    isMousePressed = false;
     nowDrawing = false;
     // Set drawParticles to false when the mouse is released
 //    drawParticles = false;
