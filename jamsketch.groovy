@@ -162,7 +162,8 @@ class JamSketch extends SimplePianoRoll {
     if (drawParticles) {
       // Create a new particle and add it to the list
       Particle p = new Particle(x, y, (float) (10 + Math.random() * (30 - 10)), 50); // Adjust size and lifespan
-      p.display(this);  // Display the particle once
+//      p.display(this);  // Display the particle once
+
     }
   }
 
