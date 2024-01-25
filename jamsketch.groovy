@@ -341,6 +341,7 @@ class JamSketch extends SimplePianoRoll {
   void mouseReleased() {
     isMousePressed = false;
     nowDrawing = false;
+    particles.clear();
     // Set drawParticles to false when the mouse is released
 //    drawParticles = false;
     if (isInside(mouseX, mouseY)) {
