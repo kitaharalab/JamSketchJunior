@@ -168,8 +168,6 @@ class JamSketch extends SimplePianoRoll {
   }
 
 
-
-
   void drawGuideCurve() {
     def xFrom = 100
     strokeWeight(3)

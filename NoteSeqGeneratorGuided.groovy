@@ -49,23 +49,50 @@ class NoteSeqGeneratorGuided implements MusicCalculator {
     }
   }
 
+//  def decideRhythm() {
+//     // TO DO: how to deal with rest?
+//    guidepart.eachnote { note ->
+//      def onset = note.onset(480) / 480 - initialBlank
+//      def i1 = (onset * mr.division / beatsPerMeas) as int
+//      def offset = note.offset(480) / 480 - initialBlank
+//      def i2 = (offset * mr.division / beatsPerMeas) as int
+//      println("Note!!!!: onset=$onset, i1=$i1, offset=$offset, i2=$i2")
+//
+//      if (i1 < mr.measureNum * mr.division) {
+//        mr.getMusicElement(noteLayer, 0, i1).setTiedFromPrevious(false)
+//      }
+//      for ( i in i1+1..<i2) {
+//      	if (i < mr.measureNum * mr.division) {
+//          println("Setting tied for index $i")
+//          mr.getMusicElement(noteLayer, 0, i).setTiedFromPrevious(true)
+//	}
+//      }
+//    }
+//  }
+
   def decideRhythm() {
-     // TO DO: how to deal with rest?
+    // TO DO: how to deal with rest?
     guidepart.eachnote { note ->
       def onset = note.onset(480) / 480 - initialBlank
-      def i1 = (onset * mr.division / beatsPerMeas) as int
+      def i1 = Math.max(0, (onset * mr.division / beatsPerMeas) as int)  // Ensure non-negative index
       def offset = note.offset(480) / 480 - initialBlank
-      def i2 = (offset * mr.division / beatsPerMeas) as int
+      def i2 = Math.max(0, (offset * mr.division / beatsPerMeas) as int)  // Ensure non-negative index
+
+      println("Note: onset=$onset, i1=$i1, offset=$offset, i2=$i2")
+
       if (i1 < mr.measureNum * mr.division) {
         mr.getMusicElement(noteLayer, 0, i1).setTiedFromPrevious(false)
       }
-      for ( i in i1+1..<i2) {
-      	if (i < mr.measureNum * mr.division) {
+
+      for (i in i1 + 1..<i2) {
+        if (i < mr.measureNum * mr.division) {
+          println("Setting tied for index $i")
           mr.getMusicElement(noteLayer, 0, i).setTiedFromPrevious(true)
-	}
+        }
       }
     }
   }
+
 
   void updated(int measure, int tick, String layer, MusicRepresentation mr) {
     println("measure ${measure}")
