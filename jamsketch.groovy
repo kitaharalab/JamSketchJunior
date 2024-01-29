@@ -56,14 +56,14 @@ class JamSketch extends SimplePianoRoll {
     showMidiOutChooser()
     def p5ctrl = new ControlP5(this)
     p5ctrl.addButton("startMusic").
-    setLabel("Start / Stop").setPosition(20, 645).
-      setSize(120, 40)
+            setLabel("Start / Stop").setPosition(20, 645).
+            setSize(120, 40)
     p5ctrl.addButton("resetMusic").
-    setLabel("Reset").setPosition(160, 645).setSize(120, 40)
-    
+            setLabel("Reset").setPosition(160, 645).setSize(120, 40)
 
-      p5ctrl.addButton("loadCurve").
-      setLabel("Load").setPosition(300, 645).setSize(120, 40)
+
+    p5ctrl.addButton("loadCurve").
+            setLabel("Load").setPosition(300, 645).setSize(120, 40)
 
 
     if (CFG.MOTION_CONTROLLER != null) {
@@ -80,12 +80,12 @@ class JamSketch extends SimplePianoRoll {
     melodyData = new MelodyData2(CFG.MIDFILENAME, (width - CFG.getKeyboardWidth) as int, this, this, CFG)
     smfread(melodyData.scc.getMIDISequence())
     def part =
-      melodyData.scc.getFirstPartWithChannel(CFG.CHANNEL_ACC)
+            melodyData.scc.getFirstPartWithChannel(CFG.CHANNEL_ACC)
     setDataModel(
-      part.getPianoRollDataModel(
-	    CFG.INITIAL_BLANK_MEASURES,
-            CFG.INITIAL_BLANK_MEASURES + CFG.NUM_OF_MEASURES
-      ))
+            part.getPianoRollDataModel(
+                    CFG.INITIAL_BLANK_MEASURES,
+                    CFG.INITIAL_BLANK_MEASURES + CFG.NUM_OF_MEASURES
+            ))
     if (CFG.SHOW_GUIDE)
       guideData = new GuideData(CFG.MIDFILENAME, (width - CFG.getKeyboardWidth) as int, this)
     fullMeasure = dataModel.getMeasureNum() * CFG.REPEAT_TIMES;
@@ -135,7 +135,7 @@ class JamSketch extends SimplePianoRoll {
     if (getCurrentMeasure() == CFG.NUM_OF_MEASURES - CFG.NUM_OF_RESET_AHEAD)
       processLastMeasure()
     melodyData.engine.setFirstMeasure(getDataModel().
-      getFirstMeasure())
+            getFirstMeasure())
     enhanceCursor()
     drawProgress()
   }
@@ -144,22 +144,17 @@ class JamSketch extends SimplePianoRoll {
     strokeWeight(3)
     stroke(0, 0, 255)
 
-    int currentMeasure = getCurrentMeasure();
-
     for (int i = 0; i < melodyData.curve1.size() - 1; i++) {
       if (melodyData.curve1[i] != null && melodyData.curve1[i + 1] != null) {
-        if ((currentMeasure + CFG.NUM_OF_RESET_AHEAD) % 8 != 0) {
-          // Draw a line between two points only if it's not the 8th measure
-          line(i + CFG.getKeyboardWidth, melodyData.curve1[i] as int, i + CFG.getKeyboardWidth + 1,
-                  melodyData.curve1[i + 1] as int);
-        }
+        // Draw a line between two points
+        line(i + CFG.getKeyboardWidth, melodyData.curve1[i] as int, i + CFG.getKeyboardWidth + 1,
+                melodyData.curve1[i + 1] as int);
 
         // Draw particles at each point
         drawParticles(i + CFG.getKeyboardWidth, melodyData.curve1[i] as int);
       }
     }
   }
-
 
   void drawParticles(float x, float y) {
     // Draw particles only if drawParticles is true
@@ -179,18 +174,15 @@ class JamSketch extends SimplePianoRoll {
     stroke(100, 200, 200)
     (0..<(guideData.curveGuideView.size()-1)).each { i ->
       if (guideData.curveGuideView[i] != null &&
-      guideData.curveGuideView[i+1] != null) {
+              guideData.curveGuideView[i+1] != null) {
         line(i+xFrom, guideData.curveGuideView[i] as int,
-             i+1+xFrom, guideData.curveGuideView[i+1] as int)
+                i+1+xFrom, guideData.curveGuideView[i+1] as int)
       }
     }
   }
 
   void updateCurve() {
-    println("updateCurve called")
     melodyData.updateCurve(pmouseX, mouseX)
-    // Add the following line to reset the curve
-    melodyData.resetCurve()
   }
 
   void storeCursorPosition() {
@@ -236,13 +228,13 @@ class JamSketch extends SimplePianoRoll {
               dataModel.getFirstMeasure() -
               CFG.INITIAL_BLANK_MEASURES + 1
       int mtotal = dataModel.getMeasureNum() *
-                   CFG.REPEAT_TIMES
+              CFG.REPEAT_TIMES
       textSize(32)
       fill(0, 0, 0)
       text(mCurrentMeasure + " / " + mtotal, 460, 675)
     }
   }
-  
+
   void stop() {
     super.stop()
     //featext.stop()
@@ -279,16 +271,16 @@ class JamSketch extends SimplePianoRoll {
     if (action == "melody") {
       def midname = "${CFG.LOG_DIR}/${logname}_melody.mid"
       melodyData.scc.toWrapper().toMIDIXML().writefileAsSMF(midname)
-//      println("saved as ${midname}")
+      println("saved as ${midname}")
       def sccname = "${CFG.LOG_DIR}/${logname}_melody.sccxml"
       melodyData.scc.toWrapper().writefile(sccname)
-//      println("saved as ${sccname}")
+      println("saved as ${sccname}")
       def jsonname = "${CFG.LOG_DIR}/${logname}_curve.json"
       saveStrings(jsonname, [JsonOutput.toJson(melodyData.curve1)] as String[])
-//      println("saved as ${jsonname}")
+      println("saved as ${jsonname}")
       def pngname = "${CFG.LOG_DIR}/${logname}_screenshot.png"
       save(pngname)
-//      println("saved as ${pngname}")
+      println("saved as ${pngname}")
       // for debug
       new File("${CFG.LOG_DIR}/${logname}_noteList.txt").text = (melodyData.scc as SCCDataSet).getFirstPartWithChannel(1).getNoteList().toString()
 //      new File("${CFG.LOG_DIR}/${logname}_noteOnlyList.txt").text = (melodyData.scc as SCCDataSet).getFirstPartWithChannel(1).getNoteOnlyList().toString()
@@ -296,7 +288,7 @@ class JamSketch extends SimplePianoRoll {
     } else {
       def txtname = "${CFG.LOG_DIR}/${logname}_${action}.txt"
       saveStrings(txtname, [action] as String[])
-//      println("saved as ${txtname}")
+      println("saved as ${txtname}")
     }
   }
 
@@ -348,26 +340,17 @@ class JamSketch extends SimplePianoRoll {
     isMousePressed = false;
     nowDrawing = false;
     particles.clear();
-
+    // Set drawParticles to false when the mouse is released
+//    drawParticles = false;
     if (isInside(mouseX, mouseY)) {
-      println("Inside isInside condition");
       if (!melodyData.engine.automaticUpdate()) {
-        println("!melodyData.engine.automaticUpdate() is true");
         melodyData.engine.outlineUpdated(
                 x2measure(mouseX) % CFG.NUM_OF_MEASURES,
                 CFG.DIVISION - 1
         );
-        // Add a direct call to updateCurve here
-        updateCurve();
-      } else {
-        println("!melodyData.engine.automaticUpdate() is false");
       }
-    } else {
-      println("Outside isInside condition");
     }
   }
-
-
 
   void mouseDragged() {
 
@@ -376,7 +359,7 @@ class JamSketch extends SimplePianoRoll {
   void keyReleased() {
     if (key == ' ') {
       if (isNowPlaying()) {
-      	stopMusic()
+        stopMusic()
       } else {
         setTickPosition(0)
         getDataModel().setFirstMeasure(CFG.INITIAL_BLANK_MEASURES)
@@ -385,17 +368,17 @@ class JamSketch extends SimplePianoRoll {
     } else if (key == 'b') {
       setNoteVisible(!isNoteVisible());
       println("Visible=${isVisible()}")
-   } else if (key == 'u') {
-     melodyData.updateCurve('all')
+    } else if (key == 'u') {
+      melodyData.updateCurve('all')
     }
 
-}
+  }
   void LoadOutlineLayerData() {
 
     def jsonFile = new File(CFG.INPUT_FILE_PATH)
     def jsonSlurper = new JsonSlurper()
     def jsonData  = jsonSlurper.parse(jsonFile)
-    jsonData.eachWithIndex{v, i-> 
+    jsonData.eachWithIndex{v, i->
 
       melodyData.curve1[i] = v
 
