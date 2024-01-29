@@ -2,7 +2,7 @@ import jp.crestmuse.cmx.misc.*
 import static jp.crestmuse.cmx.misc.ChordSymbol2.*
 
 class Config {
-  String MIDFILENAME = "blues01.mid"
+  String MIDFILENAME = "music/CanttouchThis.mid"
   List<ChordSymbol2> chordprog = [C, G, C, C, C, G, C, C] // default
   //List<ChordSymbol2> chordprog = [F, F, F, C, C, G, F, C] // tomb added
   int NUM_OF_MEASURES = 8
