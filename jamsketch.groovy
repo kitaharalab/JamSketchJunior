@@ -267,9 +267,10 @@ class JamSketch extends SimplePianoRoll {
   void drawProgress() {
     if (isNowPlaying()) {
       def dataModel = getDataModel()
-      mCurrentMeasure = getCurrentMeasure() +
+      mCurrentMeasure = (getCurrentMeasure() +
               dataModel.getFirstMeasure() -
-              CFG.INITIAL_BLANK_MEASURES + 1
+              CFG.INITIAL_BLANK_MEASURES) % (dataModel.getMeasureNum() * CFG.REPEAT_TIMES) + 1
+
       int mtotal = dataModel.getMeasureNum() * CFG.REPEAT_TIMES
       textSize(32)
       fill(0, 0, 0)
