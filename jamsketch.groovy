@@ -45,6 +45,7 @@ class JamSketch extends SimplePianoRoll {
   boolean drawParticles = false;
   boolean isMousePressed = false;
   boolean nowDrawing = false
+  int measureCounter = 0;
 
   void setup() {
     super.setup()
@@ -106,6 +107,11 @@ class JamSketch extends SimplePianoRoll {
         particles.add(new Particle(mouseX, mouseY, (float) (5 + Math.random() * (15 - 5)), 100)); // 100 frames lifespan
       }
 
+      measureCounter++;
+      if (measureCounter % 8 == 0) {
+
+      }
+
       // Update and display particles
       for (int i = particles.size() - 1; i >= 0; i--) {
         Particle p = particles.get(i);
@@ -139,6 +145,25 @@ class JamSketch extends SimplePianoRoll {
     enhanceCursor()
     drawProgress()
   }
+
+  void autoReset() {
+    // Reset user-drawn blue curve
+    melodyData.resetCurve();
+
+    // Create a new instance of MelodyData2 for the generated melody
+    MelodyData2 newMelodyData = new MelodyData2(CFG.MIDFILENAME, (width - CFG.getKeyboardWidth) as int, this, this, CFG);
+    smfread(newMelodyData.scc.getMIDISequence());
+    def newPart = newMelodyData.scc.getFirstPartWithChannel(CFG.CHANNEL_ACC);
+    setDataModel(newPart.getPianoRollDataModel(
+            CFG.INITIAL_BLANK_MEASURES,
+            CFG.INITIAL_BLANK_MEASURES + CFG.NUM_OF_MEASURES
+    ));
+
+    // Set the new MelodyData2 instance
+    melodyData = newMelodyData;
+    measureCounter = 0;
+  }
+
 
   void drawCurve() {
     strokeWeight(3)
@@ -206,13 +231,31 @@ class JamSketch extends SimplePianoRoll {
   }
 
   void processLastMeasure() {
-    makeLog("melody")
+    makeLog("melody");
     if (CFG.MELODY_RESETTING) {
-      if (mCurrentMeasure < (fullMeasure - CFG.NUM_OF_RESET_AHEAD)) getDataModel().shiftMeasure(CFG.NUM_OF_MEASURES)
-      melodyData.resetCurve()
-      if (guideData != null) guideData.shiftCurve()
+      if (mCurrentMeasure < (fullMeasure - CFG.NUM_OF_RESET_AHEAD)) {
+        getDataModel().shiftMeasure(CFG.NUM_OF_MEASURES);
+
+        // Reset user-drawn blue curve
+        melodyData.resetCurve();
+
+        // Create a new instance of MelodyData2 for the generated melody
+        MelodyData2 newMelodyData = new MelodyData2(CFG.MIDFILENAME, (width - CFG.getKeyboardWidth) as int, this, this, CFG);
+        smfread(newMelodyData.scc.getMIDISequence());
+        def newPart = newMelodyData.scc.getFirstPartWithChannel(CFG.CHANNEL_ACC);
+        setDataModel(newPart.getPianoRollDataModel(
+                CFG.INITIAL_BLANK_MEASURES,
+                CFG.INITIAL_BLANK_MEASURES + CFG.NUM_OF_MEASURES
+        ));
+
+        // Set the new MelodyData2 instance
+        melodyData = newMelodyData;
+      }
+      if (guideData != null) guideData.shiftCurve();
     }
   }
+
+
 
   void enhanceCursor() {
     if (CFG.CURSOR_ENHANCED) {
@@ -227,13 +270,35 @@ class JamSketch extends SimplePianoRoll {
       mCurrentMeasure = getCurrentMeasure() +
               dataModel.getFirstMeasure() -
               CFG.INITIAL_BLANK_MEASURES + 1
-      int mtotal = dataModel.getMeasureNum() *
-              CFG.REPEAT_TIMES
+      int mtotal = dataModel.getMeasureNum() * CFG.REPEAT_TIMES
       textSize(32)
       fill(0, 0, 0)
       text(mCurrentMeasure + " / " + mtotal, 460, 675)
+
+      // Check if the vertical progress line has passed every 8 measures
+      if (mCurrentMeasure % 8 == 0 && mCurrentMeasure > 8 && measureCounter == 0) {
+        autoReset();
+        measureCounter = 1;
+
+        // Reset the blue curve and yellow bars
+        melodyData.resetCurve();
+        // Create a new instance of MelodyData2 for the generated melody
+        MelodyData2 newMelodyData = new MelodyData2(CFG.MIDFILENAME, (width - CFG.getKeyboardWidth) as int, this, this, CFG);
+        smfread(newMelodyData.scc.getMIDISequence());
+        def newPart = newMelodyData.scc.getFirstPartWithChannel(CFG.CHANNEL_ACC);
+        setDataModel(newPart.getPianoRollDataModel(
+                CFG.INITIAL_BLANK_MEASURES,
+                CFG.INITIAL_BLANK_MEASURES + CFG.NUM_OF_MEASURES
+        ));
+        melodyData = newMelodyData;
+      } else if (mCurrentMeasure % 8 != 0) {
+        measureCounter = 0;
+      }
     }
   }
+
+
+
 
   void stop() {
     super.stop()
@@ -251,17 +316,19 @@ class JamSketch extends SimplePianoRoll {
   }
 
   void resetMusic() {
-    initData()
-    setTickPosition(0)
-    dataModel.setFirstMeasure(CFG.INITIAL_BLANK_MEASURES)
-    makeLog("reset")
+    stopMusic();  // Stop the music before resetting
+    initData();
+    setTickPosition(0);
+    dataModel.setFirstMeasure(CFG.INITIAL_BLANK_MEASURES);
+    makeLog("reset");
   }
+
 
   @Override
   void musicStopped() {
     super.musicStopped()
-//    if (microsecondPosition >= sequencer.getMicrosecondLength())
-//      resetMusic()
+    if (microsecondPosition >= sequencer.getMicrosecondLength())
+      resetMusic()
   }
 
 
