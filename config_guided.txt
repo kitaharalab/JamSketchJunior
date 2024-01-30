@@ -10,7 +10,7 @@ class Config {
   int DIVISION = 8
   int BEATS_PER_MEASURE = 4
   int INITIAL_BLANK_MEASURES = 2
-  int REPEAT_TIMES = 1
+  int REPEAT_TIMES = 3
   int CALC_LENGTH = 1
   String MODEL_FILE = "model20180321.json"
   String LOG_DIR = "log/"
