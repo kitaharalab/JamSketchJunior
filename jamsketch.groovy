@@ -99,6 +99,8 @@ class JamSketch extends SimplePianoRoll {
     tint(255, 200);
     image(backgroundImage, 0, 0, width, height);
     noTint();
+    drawCurrentBar();
+
     if (isMousePressed) {
       // Create particles only if drawParticles is true
       if (drawParticles) {
@@ -243,7 +245,20 @@ class JamSketch extends SimplePianoRoll {
     }
   }
 
+  void drawCurrentBar() {
+    int measure = getCurrentMeasure();
+    double beat = getCurrentBeat();
+    if (measure >= 0) {
+      double x = beat2x(measure, beat);
 
+      // Set the stroke color and weight for the current bar
+      stroke(255); // White color
+      strokeWeight(2); // Adjust the thickness as needed
+
+      // Draw the current bar
+      line((int)x, 0, (int)x, 630);
+    }
+  }
 
   void stop() {
     super.stop()
