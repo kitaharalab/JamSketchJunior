@@ -10,8 +10,12 @@ abstract class AbstractMelodyGenerateEngine(
     val modelPath:String,
     val cmx: CMXController = CMXController.getInstance()
 ) : IMelodyGenerateEngine{
-    init {
+    /**
+     *
+     */
 
+    init {
+        loadModel(modelPath)
     }
     /*
     abstract fun musicCalculatorForOutline(
@@ -24,7 +28,18 @@ abstract class AbstractMelodyGenerateEngine(
         entropy_bias: Double = 0.0,
         model: Map<String, Any?> = emptyMap(),
         ) : MusicCalculator
-        
+
+     */
+    /**
+     * 小節と拍を取得し、そこまでの旋律を更新する
+     * @param measure : 小節
+     * @param tick : 拍
      */
     abstract fun outlineUpdated(measure: Int, tick: Int)
+
+    /**
+     * モデルをロードする
+     * @param modelPath : モデルのディレクトリ。(通常はConfigでPathを取得する)
+     */
+    abstract fun loadModel(modelPath: String)
 }
