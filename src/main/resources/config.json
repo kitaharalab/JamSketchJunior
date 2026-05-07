@@ -16,7 +16,7 @@
     "octave_program" : {}
   },
   "music" : {
-    "jamsketch_engine": "JamSketchEngineSimple",
+    "jamsketch_engine": "JamSketchEngineTF1",
     "midfilename": "blues02.mid",
     "chordprog": ["C", "F", "C", "C", "F", "F", "C", "C", "G", "F", "C", "G"],
     "num_of_measures": 12,
@@ -40,7 +40,7 @@
     "calc_length": 1
   },
   "tf": {
-    "tf_model_dir": "tf/onebar_model_div4",
+    "tf_model_dir": "tf/onebar_model_div3",
     "tf_model_layer": "serving_default_first_layer_input",
     "tf_model_input_col": 133,
     "tf_model_output_col": 121,

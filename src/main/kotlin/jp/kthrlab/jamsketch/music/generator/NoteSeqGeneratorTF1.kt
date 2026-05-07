@@ -31,7 +31,7 @@ class NoteSeqGeneratorTF1(
         "G" to floatArrayOf(0f, 0f, 1f, 0f, 0f, 1f, 0f, 1f, 0f, 0f, 0f, 1f)
     )
 
-    private var tfModel = SavedModelBundle.load(File(javaClass.getResource("/${tf_model_dir}").path).path)
+    private var tfModel = SavedModelBundle.load(File(javaClass.getResource("/${tf_model_dir}").toURI()).path)
 
     override fun updated(measure: Int, tick: Int, layer: String?, mr: MusicRepresentation?) {
 
@@ -46,6 +46,7 @@ class NoteSeqGeneratorTF1(
                 lastUpdateTime = currentTime
 
                 val tf_input = preprocessing(measure, mr)
+		//println(TFloat32.tensorOf(tf_input).shape().toString())
                 val tf_output = tfModel.session()
                     .runner()
                     .feed(tf_model_layer, TFloat32.tensorOf(tf_input))
