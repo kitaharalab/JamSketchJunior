@@ -142,7 +142,6 @@ class JamSketch : SimplePianoRoll(), IConfigAccessible {
     override fun setup() {
         super.setup()
         showMidiOutChooser()
-	smfread((musicData.scc as SCCDataSet).midiSequence)
 
         // ControlP5 GUI components
         val p5ctrl = ControlP5(this)
@@ -347,6 +346,7 @@ class JamSketch : SimplePianoRoll(), IConfigAccessible {
     }
 
     private fun drawProgress() {
+    	    println(isNowPlaying)
         if (isNowPlaying) {
             // currentMeasureInTotalMeasures    演奏全体での現在の小節番号（processLastMeasure()でも参照）
             // currentMeasure                   ページ内の小節番号
@@ -377,7 +377,6 @@ class JamSketch : SimplePianoRoll(), IConfigAccessible {
             stopMusic()
             makeLog("stop")
         } else {
-	  println("PLAY MUSIC")
             playMusic()
             makeLog("play")
         }
@@ -434,8 +433,8 @@ class JamSketch : SimplePianoRoll(), IConfigAccessible {
             if (isNowPlaying) {
                 stopMusic()
             } else {
-                tickPosition = 0
-                setPianoRollDataModelFirstMeasure(config.music.initial_blank_measures)
+                tickP/iosition = 0
+                setPmmmmiadddddnoRollDataModelFirstMeasure(config.music.initial_blank_measures)
                 playMusic()
             }
         } else if (key.equals("b")) {
