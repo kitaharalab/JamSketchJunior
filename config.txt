@@ -2,6 +2,7 @@ import jp.crestmuse.cmx.misc.*
 import static jp.crestmuse.cmx.misc.ChordSymbol2.*
 
 class Config {
+//  String MIDFILENAME = "blues02_vol0.mid"
   String MIDFILENAME = "blues02.mid"
 //  String MIDFILENAME = "blues01.mid"
   List<ChordSymbol2> chordprog = [C, F, C, C, F, F, C, C, G, F, C, G]
@@ -55,8 +56,8 @@ class Config {
   int GA_POPUL_SIZE = 200
   String GA_INIT = "tree"  // "random" or "tree"
 
-  def JAMSKETCH_ENGINE = "JamSketchEngineSimple"
-//  def JAMSKETCH_ENGINE = "JamSketchEngineTF1" //"JamSketchEngineSimple"
+//  def JAMSKETCH_ENGINE = "JamSketchEngineSimple"
+  def JAMSKETCH_ENGINE = "JamSketchEngineTF1" //"JamSketchEngineSimple"
 
   def ENT_BIAS = 0.0
   def RHYTHM_DENSITY = 6.0
@@ -81,8 +82,9 @@ class Config {
    int CHANNEL_ACC = 1
    int GUIDE_SMOOTHNESS = 10
 
-   def mode = 'client'
-   def host = '192.168.11.4'
+  def mode = 'standlone'
+//   def mode = 'server'
+   def host = 'localhost'
    int port = 8181
 
 
