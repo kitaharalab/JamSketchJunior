@@ -19,7 +19,7 @@ sealed class SealedConfig {
             .plus(File.separator)
             .plus("config.json")
         private val userJsonFile = File(getAppDataDirectory(), configFileName)
-        private val defaultJsonFile = File(javaClass.getResource("/config.json").path)
+        private val defaultJsonFile = File(javaClass.getResource("/config.json").toURI())
         private val jsonFile = userJsonFile.takeIf { it.exists() } ?: defaultJsonFile
         private val mapper = jacksonObjectMapper().let {
             // Ignore unknown properties

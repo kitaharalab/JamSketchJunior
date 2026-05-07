@@ -17,7 +17,8 @@ repositories {
 
 application {
     // Define the main class for the application.
-    mainClass = "jp.kthrlab.jamsketch.view.JamSketch"
+    mainClass = "jp.kthrlab.jamsketch.view.JamSketchKt"
+//    mainClass = "jp.kthrlab.jamsketch.view.JamSketch"
 }
 
 dependencies {
@@ -31,7 +32,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.commons/commons-math3
     implementation("org.apache.commons:commons-math3:3.6.1")
     // https://mvnrepository.com/artifact/be.ac.ulg.montefiore.run.jahmm/jahmm
-    implementation("be.ac.ulg.montefiore.run.jahmm:jahmm:0.6.2")
+    //implementation("be.ac.ulg.montefiore.run.jahmm:jahmm:0.6.2")
 
     // https://mvnrepository.com/artifact/org.apache.ivy/ivy
     implementation("org.apache.ivy:ivy:2.4.0")

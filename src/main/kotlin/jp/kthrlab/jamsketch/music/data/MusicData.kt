@@ -1,5 +1,6 @@
 package jp.kthrlab.jamsketch.music.data
 
+import java.io.File
 import jp.crestmuse.cmx.filewrappers.SCC
 import jp.crestmuse.cmx.processing.CMXController
 
@@ -25,7 +26,7 @@ class MusicData(
     val channel_acc: Int = 0,
 ) {
     var curve1: MutableList<Int?> = arrayOfNulls<Int>(size).toMutableList()
-    var scc: SCC = CMXController.readSMFAsSCC(javaClass.getResource("/${filename}").path)
+    var scc: SCC = CMXController.readSMFAsSCC(File(javaClass.getResource("/${filename}").toURI()).path)
 
     init {
         scc.toDataSet().repeat(
