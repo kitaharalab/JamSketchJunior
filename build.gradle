@@ -4,7 +4,7 @@ plugins {
     id 'edu.sc.seis.launch4j' version '2.5.4'
 }
 
-mainClassName = "JamSketch"
+mainClassName = "jp.jamsketch.main.JamSketch"
 
 repositories {
     google()
@@ -61,10 +61,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.commons/commons-math3
     implementation 'org.apache.commons:commons-math3:3.6.1'
     // https://mvnrepository.com/artifact/be.ac.ulg.montefiore.run.jahmm/jahmm
-    implementation 'be.ac.ulg.montefiore.run.jahmm:jahmm:0.6.2'
+    //implementation 'be.ac.ulg.montefiore.run.jahmm:jahmm:0.6.2'
 
     // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy
-    implementation 'org.codehaus.groovy:groovy:3.0.9'
+    implementation 'org.codehaus.groovy:groovy:3.0.22'
     // https://mvnrepository.com/artifact/org.apache.ivy/ivy
     implementation 'org.apache.ivy:ivy:2.4.0'
 
@@ -107,6 +107,21 @@ dependencies {
     // https://mvnrepository.com/artifact/xalan/serializer
     implementation 'xalan:serializer:2.7.2'
 
+    // https://mvnrepository.com/artifact/javax.websocket/javax.websocket-api
+    compileOnly group: 'javax.websocket', name: 'javax.websocket-api', version: '1.1'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.13.0'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.0'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.13.0'
+
+    implementation "org.glassfish.tyrus:tyrus-server:2.0.0" 
+    implementation "org.glassfish.tyrus:tyrus-container-grizzly-server:2.0.0" 
+    implementation group: 'org.glassfish.tyrus.bundles', name: 'tyrus-standalone-client', version: '2.1.5'
 }
 
 compileJava.options.encoding = "UTF-8"
@@ -116,7 +131,7 @@ targetCompatibility = "1.8"
 
 application {
     // Define the main class for the application.
-    mainClass = 'JamSketch'
+    mainClass = 'jp.jamsketch.main.JamSketch'
 }
 
 task runScript(type: JavaExec) {
@@ -127,7 +142,7 @@ task runScript(type: JavaExec) {
     classpath(".")
     println(classpath.toString())
     main 'groovy.ui.GroovyMain'
-    args 'jamsketch.groovy'
+    args 'jp\\jamsketch\\main\\jamsketch.groovy'
 }
 
 task printEnv {
@@ -141,7 +156,7 @@ jar {
 
    //Specify the main class for manifest file.
    manifest {
-        attributes "Main-Class" : "jamsketch"
+        attributes "Main-Class" : "jp.jamsketch.main.jamsketch"
     }
 
     //Include multiple dependencies.

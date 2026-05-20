@@ -44,6 +44,7 @@ class Config {
   String GA_INIT = "tree"  // "random" or "tree"
 
   def JAMSKETCH_ENGINE = "JamSketchEngineGuided"
+//  def JAMSKETCH_ENGINE = "jp.jamsketch.main.JamSketchEngineGuided"
 
   def ENT_BIAS = 0.0
   def RHYTHM_DENSITY = 6.0
@@ -59,10 +60,13 @@ class Config {
   def LIMITS =
     [onset: [-0.0833, 0.0833], dur: [0.0625, 1.25], energy: [0.0, 1.99]]
 
-   boolean SHOW_GUIDE = true
+   boolean SHOW_GUIDE = false //originall true
    int CHANNEL_GUIDE = 2
    int CHANNEL_ACC = 1
    int GUIDE_SMOOTHNESS = 10
+   def mode = 'server'
+   def host = 'localhost'
+   int port = 8181
 }
 
 new Config()

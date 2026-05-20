@@ -52,8 +52,9 @@ goto fail
 
 :findJavaFromJavaHome
 set JAVA_HOME=%JAVA_HOME:"=%
-@REM set JAVA_EXE=%JAVA_HOME%/bin/java.exe
-set JAVA_EXE=%JAVA_HOME%/java.exe
+set JAVA_EXE=%JAVA_HOME%/bin/java.exe
+@REM set JAVA_EXE=%JAVA_HOME%/java.exe
+@rem edited by kitahara 2024.09.10
 
 if exist "%JAVA_EXE%" goto execute
 
